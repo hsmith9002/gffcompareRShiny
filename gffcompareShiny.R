@@ -10,7 +10,12 @@
 library(shiny)
 
 ## Sect 1: UI
+ui <- fluidPage()
 
 ## Sect 2: SERVER
+server <- function(input, output) {}
 
 ## Sect 3: KNIT
+shinyApp(ui = ui, server = server)
+
+
