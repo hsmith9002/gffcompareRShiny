@@ -52,9 +52,11 @@ server <- function(input, output, session) {
     if (is.null(inFile))
       return(NULL)
     path <- inFile$datapath
+    
       ############################
       #import gtf
       ############################
+    
     progress <- Progress$new(session, min=0, max=10)
     on.exit(progress$close())
     
