@@ -8,6 +8,15 @@
 #########################################
 
 library(shiny)
+library(tidyverse)
+library(reshape2)
+library(scales)
+library(RColorBrewer)
+library(rtracklayer) 
+library(GenomicRanges)
+options(stringsAsFactors = F)
+options(dplyr.width = Inf)
+'%!in%' <- function(x,y)!('%in%'(x,y))
 options(shiny.maxRequestSize=30*1024^2)
 
 ## Sect 1: UI
@@ -23,22 +32,13 @@ ui <- fluidPage(
 server <- function(input, output) {
   ## generate output bar chart
   output$bar <- renderPlot({
-    ccplot <- function(x){
-      
-      library(tidyverse)
-      library(reshape2)
-      library(scales)
-      library(RColorBrewer)
-      library(rtracklayer) 
-      library(GenomicRanges)
-      options(stringsAsFactors = F)
-      options(dplyr.width = Inf)
-      '%!in%' <- function(x,y)!('%in%'(x,y))
+    ccplot <- function(path){
+
       ############################
       #import gtf
       ############################
       
-      df <- import(x)
+      df <- import(path)
       df <- as.data.frame(df)
       
       ############################
