@@ -8,6 +8,12 @@
 #########################################
 
 library(shiny)
+library(tidyverse)
+library(reshape2)
+library(scales)
+library(RColorBrewer)
+options(stringsAsFactors = F)
+options(dplyr.width = Inf)
 
 ## Sect 1: UI
 ui <- fluidPage(
