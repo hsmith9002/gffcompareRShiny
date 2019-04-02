@@ -29,7 +29,10 @@ ui <- fluidPage(
 )
 
 ## Sect 2: SERVER
-server <- function(input, output) {}
+server <- function(input, output) {
+  ## generate output bar chart
+  output$bar <- renderPlot({})
+}
 
 ## Sect 3: KNIT
 shinyApp(ui = ui, server = server)
