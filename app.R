@@ -12,6 +12,7 @@ ui <- fluidPage(
   ## Input functions
   fileInput(inputId = "ds", 
             label = "Upload gtf"),
+  submitButton(text = "Submit", icon = NULL, width = NULL),
   plotOutput(outputId = "bar")
 )
 
