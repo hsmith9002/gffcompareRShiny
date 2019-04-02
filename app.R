@@ -37,7 +37,7 @@ server <- function(input, output) {
     inFile <- input$file1
     if (is.null(inFile))
       return(NULL)
-    path <- input$datapath
+    path <- inFile$datapath
       ############################
       #import gtf
       ############################
