@@ -25,7 +25,8 @@ ui <- fluidPage(
   fileInput(inputId = "file1", 
             label = "Upload gtf",
             accept = ".gtf"),
-  plotOutput(outputId = "bar")
+  plotOutput(outputId = "bar"),
+  tableOutput("table")
 )
 
 ## Sect 2: SERVER
@@ -73,7 +74,7 @@ server <- function(input, output, session) {
       ## Check to make sure the number of class codes in summary sums to the total number of non-intergenic transcripts
       if(sum(out$Freq) != dim(noninterg)[1]) stop("Total class codes do not sum to total non-intergenic txts")
       out <- as.data.frame(out)
-      
+      output$table <- renderTable(out)
       ############################
       #Prepare for plotting
       ############################
