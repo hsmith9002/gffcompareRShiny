@@ -30,7 +30,7 @@ ui <- fluidPage(
   tableOutput("table"),
   ## Other
   headerPanel("Class Code Shiny Proof of Concept"),
-  downloadButton('png'),
+  downloadButton('png', "Download .png"),
   helpText("Note: The class codes summarized in the 
            table do not include intergenic comparisons
            as defined by gffcompare. All other codes 
