@@ -17,7 +17,7 @@ library(GenomicRanges)
 options(stringsAsFactors = F)
 options(dplyr.width = Inf)
 '%!in%' <- function(x,y)!('%in%'(x,y))
-options(shiny.maxRequestSize=30*1024^2)
+options(shiny.maxRequestSize=500*1024^2)
 
 ## Sect 1: UI
 ui <- fluidPage(
@@ -25,7 +25,6 @@ ui <- fluidPage(
   fileInput(inputId = "file1", 
             label = "Upload gtf",
             accept = ".gtf"),
-  submitButton(text = "Submit", icon = NULL, width = NULL),
   plotOutput(outputId = "bar")
 )
 
