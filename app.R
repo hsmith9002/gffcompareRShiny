@@ -30,7 +30,6 @@ ui <- fluidPage(
   tableOutput("table"),
   ## Other
   headerPanel("Class Code Shiny Proof of Concept"),
-  downloadButton('png'),
   helpText("Note: The class codes summarized in the 
            table do not include intergenic comparisons
            as defined by gffcompare. All other codes 
@@ -61,7 +60,7 @@ server <- function(input, output, session) {
     
     progress$set(message = 'Importing and parsing gtf file using RTracklayer',
                  detail = 'This may take a few minutes...')   
-    ccplot <- function(){
+    
       df <- import(path)
       df <- as.data.frame(df)
       
@@ -139,19 +138,9 @@ server <- function(input, output, session) {
                     prettyNum(sum(as.numeric(bnccc_man$Freq)), 
                               big.mark = ",", 
                               big.interval = 3))) 
-     return(pbnlx2.pct.man)
-    }
+     pbnlx2.pct.man
   }
   )
-  output$png = downloadHandler(
-    filename = 'classcode.png',
-    content = function(file) {
-      device <- function(..., width, height) {
-        grDevices::png(..., width = 8, height = 8,
-                       res = 300, units = "in")
-      }
-      ggsave(file, plot = ccplot(), device = device)
-    })
 }
 
 ## Sect 3: KNIT
