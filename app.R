@@ -25,8 +25,11 @@ ui <- fluidPage(
   fileInput(inputId = "file1", 
             label = "Upload gtf",
             accept = ".gtf"),
+  ## Output functions
   plotOutput(outputId = "bar"),
-  tableOutput("table")
+  tableOutput("table"),
+  ## Other
+  headerPanel("Class Code Shiny Proof of Concept")
 )
 
 ## Sect 2: SERVER
