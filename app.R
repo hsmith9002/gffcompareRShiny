@@ -29,7 +29,18 @@ ui <- fluidPage(
   plotOutput(outputId = "bar"),
   tableOutput("table"),
   ## Other
-  headerPanel("Class Code Shiny Proof of Concept")
+  headerPanel("Class Code Shiny Proof of Concept"),
+  helpText("Note: The class codes summarized in the 
+           table do not include intergenic comparisons
+           as defined by gffcompare. All other codes 
+           are used exactly as defined on gffcompare manual.
+           In the bar chart is plotting a subset of the
+           codes from the table.",
+           "Exact match: '='", 
+           "Contained in reference: 'c'", 
+           "Containment of reference: 'k'", 
+           "At least 1 exon junction match: 'j'",
+           "Ambiguous overlap: all other codes from table")
 )
 
 ## Sect 2: SERVER
