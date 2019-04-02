@@ -61,7 +61,7 @@ server <- function(input, output, session) {
     
     progress$set(message = 'Importing and parsing gtf file using RTracklayer',
                  detail = 'This may take a few minutes...')   
-    
+    ccplot <- function(){
       df <- import(path)
       df <- as.data.frame(df)
       
@@ -139,8 +139,10 @@ server <- function(input, output, session) {
                     prettyNum(sum(as.numeric(bnccc_man$Freq)), 
                               big.mark = ",", 
                               big.interval = 3))) 
-     pbnlx2.pct.man
+     return(pbnlx2.pct.man)
+    }
   }
+  )
   output$png = downloadHandler(
     filename = 'classcode.png',
     content = function(file) {
@@ -148,8 +150,8 @@ server <- function(input, output, session) {
         grDevices::png(..., width = 8, height = 8,
                        res = 300, units = "in")
       }
-      ggsave(file, plot = plotInput(), device = device)
-    }))
+      ggsave(file, plot = ccplot(), device = device)
+    })
 }
 
 ## Sect 3: KNIT
