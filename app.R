@@ -6,7 +6,10 @@
 # from gffcompare and summuarizes/
 # visualizes the class codes using ggplot2
 #########################################
+
 library(shiny)
+options(shiny.maxRequestSize=30*1024^2)
+
 ## Sect 1: UI
 ui <- fluidPage(
   ## Input functions
