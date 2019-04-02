@@ -12,6 +12,8 @@ library(tidyverse)
 library(reshape2)
 library(scales)
 library(RColorBrewer)
+library(rtracklayer) 
+library(GenomicRanges)
 options(stringsAsFactors = F)
 options(dplyr.width = Inf)
 
