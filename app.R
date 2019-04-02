@@ -21,19 +21,19 @@ options(shiny.maxRequestSize=500*1024^2)
 
 ## Sect 1: UI
 ui <- fluidPage(
+  ## Other
+  headerPanel("Class Code Shiny Proof of Concept"),
+  helpText("Note: The class codes summarized in the 
+           table do not include intergenic comparisons
+           as defined by gffcompare. All other codes 
+           are used exactly as defined on gffcompare manual."),
   ## Input functions
   fileInput(inputId = "file1", 
             label = "Upload gtf",
             accept = ".gtf"),
   ## Output functions
   plotOutput(outputId = "bar"),
-  tableOutput("table"),
-  ## Other
-  headerPanel("Class Code Shiny Proof of Concept"),
-  helpText("Note: The class codes summarized in the 
-           table do not include intergenic comparisons
-           as defined by gffcompare. All other codes 
-           are used exactly as defined on gffcompare manual.")
+  tableOutput("table")
 )
 
 ## Sect 2: SERVER
