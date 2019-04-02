@@ -23,7 +23,8 @@ options(shiny.maxRequestSize=30*1024^2)
 ui <- fluidPage(
   ## Input functions
   fileInput(inputId = "file1", 
-            label = "Upload gtf"),
+            label = "Upload gtf",
+            accept = ".gtf"),
   submitButton(text = "Submit", icon = NULL, width = NULL),
   plotOutput(outputId = "bar")
 )
@@ -32,8 +33,11 @@ ui <- fluidPage(
 server <- function(input, output) {
   ## generate output bar chart
   output$bar <- renderPlot({
-    ccplot <- function(path){
 
+    inFile <- input$file1
+    if (is.null(inFile))
+      return(NULL)
+    path <- input$datapath
       ############################
       #import gtf
       ############################
@@ -115,13 +119,7 @@ server <- function(input, output) {
                     prettyNum(sum(as.numeric(bnccc_man$Freq)), 
                               big.mark = ",", 
                               big.interval = 3))) 
-      return(pbnlx2.pct.man)
-    }
-    inFile <- input$file1
-    if (is.null(inFile))
-      return(NULL)
-    path <- input$datapath
-    ccplot(path)
+     pbnlx2.pct.man
   })
 }
 
