@@ -29,7 +29,7 @@ ui <- fluidPage(
 )
 
 ## Sect 2: SERVER
-server <- function(input, output) {
+server <- function(input, output, session) {
   ## generate output bar chart
   output$bar <- renderPlot({
 
@@ -40,7 +40,12 @@ server <- function(input, output) {
       ############################
       #import gtf
       ############################
-      
+    progress <- Progress$new(session, min=0, max=10)
+    on.exit(progress$close())
+    
+    progress$set(message = 'Importing and parsing gtf file using RTracklayer',
+                 detail = 'This may take a few minutes...')  
+    
       df <- import(path)
       df <- as.data.frame(df)
       
