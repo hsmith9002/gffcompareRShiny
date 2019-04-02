@@ -20,7 +20,11 @@ options(dplyr.width = Inf)
 ## Sect 1: UI
 ui <- fluidPage(
   ## Input functions
-  selectInput(inputId = "ds", label = "Select a dataset (gtf)")
+  selectInput(inputId = "ds", 
+              label = "Select a dataset (gtf)", 
+              choices =  list(`HRDP` = c("Brain", "Liver"),
+                              `HS` = c("BR1", "BR2", "BR3", "BR4", "BR5"),
+                              `Legacy` = c("Tissue1", "Tissue2", "Tissue3")))
 )
 
 ## Sect 2: SERVER
