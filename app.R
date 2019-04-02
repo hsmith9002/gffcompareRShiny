@@ -119,7 +119,7 @@ server <- function(input, output, session) {
                       x = (seq(1,5,1))+0.085), 
                   size=5.5) +
         xlab("Class Code") + 
-        ylab(paste0("Number of Transcripts: ",
+        ylab(paste0("Number of Transcripts non-intergenic: ",
                     prettyNum(sum(as.numeric(bnccc_man$Freq)), 
                               big.mark = ",", 
                               big.interval = 3))) 
