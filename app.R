@@ -13,7 +13,7 @@ options(shiny.maxRequestSize=30*1024^2)
 ## Sect 1: UI
 ui <- fluidPage(
   ## Input functions
-  fileInput(inputId = "ds", 
+  fileInput(inputId = "file1", 
             label = "Upload gtf"),
   submitButton(text = "Submit", icon = NULL, width = NULL),
   plotOutput(outputId = "bar")
@@ -117,7 +117,11 @@ server <- function(input, output) {
                               big.interval = 3))) 
       return(pbnlx2.pct.man)
     }
-    ccplot(input$ds)
+    inFile <- input$file1
+    if (is.null(inFile))
+      return(NULL)
+    path <- input$datapath
+    ccplot(path)
   })
 }
 
