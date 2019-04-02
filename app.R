@@ -24,7 +24,7 @@ ui <- fluidPage(
   ## Other
   headerPanel("Class Code Shiny Proof of Concept"),
   helpText("Note: The class codes summarized in the 
-           table do not include intergenic comparisons
+           table do not include 'intergenic'unknown' comparisons
            as defined by gffcompare. All other codes 
            are used exactly as defined on gffcompare manual."),
   ## Input functions
