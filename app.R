@@ -30,7 +30,6 @@ ui <- fluidPage(
   tableOutput("table"),
   ## Other
   headerPanel("Class Code Shiny Proof of Concept"),
-  downloadButton('png', "Download .png"),
   helpText("Note: The class codes summarized in the 
            table do not include intergenic comparisons
            as defined by gffcompare. All other codes 
@@ -141,18 +140,8 @@ server <- function(input, output, session) {
                     prettyNum(sum(as.numeric(bnccc_man$Freq)), 
                               big.mark = ",", 
                               big.interval = 3))) 
-     pbnlx2.pct.man
+    pbnlx2.pct.man
   }
-  )
-  output$png <- downloadHandler(
-    filename = function(){
-      paste("classCodeBarChart", ".png", sep = "")
-    }
-    content = function(file) {
-      png(file = file)
-      pbnlx2.pct.man
-      dev.off()
-    }
   )
 }
 
