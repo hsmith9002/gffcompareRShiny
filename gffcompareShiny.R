@@ -10,7 +10,10 @@
 library(shiny)
 
 ## Sect 1: UI
-ui <- fluidPage()
+ui <- fluidPage(
+  ## Input functions
+  selectInput(inputId = "ds", label = "Select a dataset (gtf)")
+)
 
 ## Sect 2: SERVER
 server <- function(input, output) {}
