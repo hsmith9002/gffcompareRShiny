@@ -168,28 +168,7 @@ server <- function(input, output, session) {
         png(file)
       else
         pdf(file)
-      ggplot(bnccc_man, aes(x=Var1, y=prop, fill=Var1)) +
-        geom_bar(stat="identity") +
-        scale_y_continuous(labels=percent, 
-                           limits=c(0,0.70)) + 
-        scale_x_discrete(labels=c("Exact match", 
-                                  "Contained in \n reference", 
-                                  "Containment of \n reference", 
-                                  "At least 1 \n exon junction \n match",
-                                  "Ambiguous overlap")) +
-        scale_fill_manual('leged', values = brewer.pal(n = 5, name = "Set2")) +
-        theme(legend.position='none',
-              plot.title = element_text(hjust=0, size = 20)) +
-        geom_text(data=bnccc_man, 
-                  aes(label=Perc[order(bnccc_man$Var1)], 
-                      y=prop[order(bnccc_man$Var1)]+0.015,
-                      x = (seq(1,5,1))+0.085), 
-                  size=5.5) +
-        xlab("Class Code") + 
-        ylab(paste0("Number of Transcripts non-intergenic: ",
-                    prettyNum(sum(as.numeric(bnccc_man$Freq)), 
-                              big.mark = ",", 
-                              big.interval = 3))) 
+      print(pbnlx2.pct.man)
       dev.off()
     }
   )
