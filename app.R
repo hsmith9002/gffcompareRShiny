@@ -31,10 +31,11 @@ ui <- fluidPage(
   fileInput(inputId = "file1", 
             label = "Upload gtf",
             accept = ".gtf"),
+  actionButton("result1","Generate Result"),
   ## Output functions
   plotOutput(outputId = "bar"),
   tableOutput("table"),
-  downloadButton("png", label = "Download plot")
+  downloadButton("downloadplot", label = "Download plot")
 )
 
 ## Sect 2: SERVER
@@ -43,7 +44,8 @@ server <- function(input, output, session) {
   
   ## prepare plot objects
   data <- reactiveValues()
-  inFile <- input$file1
+  observeEvent(input$result1, {
+    inFile <- input$file1
   if (is.null(inFile))
     return(NULL)
   path <- inFile$datapath
@@ -155,15 +157,16 @@ server <- function(input, output, session) {
                 prettyNum(sum(as.numeric(bnccc_man$Freq)), 
                           big.mark = ",", 
                           big.interval = 3))) 
+  })
   
   output$bar <- renderPlot({
     data$plot
   }
   )
   ## Download plot
-  output$png <- downloadHandler(
+  output$downloadplot <- downloadHandler(
     filename = function(){
-      paste("classCode", input$var1, sep = ".")
+      paste("classCode", ".png", sep = "")
     },
     content = function(file) {
      ggsave(file, data$plot)
