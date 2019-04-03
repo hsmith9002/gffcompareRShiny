@@ -19,6 +19,10 @@ options(dplyr.width = Inf)
 '%!in%' <- function(x,y)!('%in%'(x,y))
 options(shiny.maxRequestSize=500*1024^2)
 
+## Read in dataset and summarize class codes
+rn6.mbr <- import("/Volumes/smiharry/Saba_Lab/RNA-Seq/HRDP/Transcript_Reconstruction/Brain/StringTie_Results/gffcmp.annotated.cleaned.gtf")
+rn6.mbr <- as.data.frame(rn6.mbr)
+
 ## Sect 1: UI
 ui <- fluidPage(
   ## Other
@@ -28,6 +32,7 @@ ui <- fluidPage(
            as defined by gffcompare. All other codes 
            are used exactly as defined on gffcompare manual."),
   ## Input functions
+  selectInput("select", "Choose a comparison", choices = list("BrainRC vs. Ensembl", "Upload my own")),
   fileInput(inputId = "file1", 
             label = "Upload gtf",
             accept = ".gtf"),
@@ -44,7 +49,9 @@ server <- function(input, output, session) {
   
   ## prepare plot objects
   data <- reactiveValues()
-  observeEvent(input$result1, {
+  observeEvent(
+    input$result1, {
+      if(input$select == "Upload my own"){
     inFile <- input$file1
   if (is.null(inFile))
     return(NULL)
@@ -62,6 +69,8 @@ server <- function(input, output, session) {
   
   df <- import(path)
   df <- as.data.frame(df)
+      }
+  else{
   
   ############################
   #Summarize class codes
@@ -157,8 +166,9 @@ server <- function(input, output, session) {
                 prettyNum(sum(as.numeric(bnccc_man$Freq)), 
                           big.mark = ",", 
                           big.interval = 3))) 
+  }
   })
-  
+
   output$bar <- renderPlot({
     data$plot
   }
