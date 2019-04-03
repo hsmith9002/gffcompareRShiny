@@ -27,13 +27,15 @@ ui <- fluidPage(
            table do not include 'intergenic'unknown' comparisons
            as defined by gffcompare. All other codes 
            are used exactly as defined on gffcompare manual."),
+  radioButtons("var1", label = "Download plot file type", choices = list("png", "pdf")),
   ## Input functions
   fileInput(inputId = "file1", 
             label = "Upload gtf",
             accept = ".gtf"),
   ## Output functions
   plotOutput(outputId = "bar"),
-  tableOutput("table")
+  tableOutput("table"),
+  downloadButton("png", label = "Download plot")
 )
 
 ## Sect 2: SERVER
@@ -155,6 +157,41 @@ server <- function(input, output, session) {
                               big.interval = 3))) 
     pbnlx2.pct.man
   }
+  )
+  ## Download plot
+  output$png <- downloadHandler(
+    filename = function(){
+      paste("classCode", input$var1, sep = ".")
+    },
+    content = function(file) {
+      if(input$var1 == "png")
+        png(file)
+      else
+        pdf(file)
+      ggplot(bnccc_man, aes(x=Var1, y=prop, fill=Var1)) +
+        geom_bar(stat="identity") +
+        scale_y_continuous(labels=percent, 
+                           limits=c(0,0.70)) + 
+        scale_x_discrete(labels=c("Exact match", 
+                                  "Contained in \n reference", 
+                                  "Containment of \n reference", 
+                                  "At least 1 \n exon junction \n match",
+                                  "Ambiguous overlap")) +
+        scale_fill_manual('leged', values = brewer.pal(n = 5, name = "Set2")) +
+        theme(legend.position='none',
+              plot.title = element_text(hjust=0, size = 20)) +
+        geom_text(data=bnccc_man, 
+                  aes(label=Perc[order(bnccc_man$Var1)], 
+                      y=prop[order(bnccc_man$Var1)]+0.015,
+                      x = (seq(1,5,1))+0.085), 
+                  size=5.5) +
+        xlab("Class Code") + 
+        ylab(paste0("Number of Transcripts non-intergenic: ",
+                    prettyNum(sum(as.numeric(bnccc_man$Freq)), 
+                              big.mark = ",", 
+                              big.interval = 3))) 
+      dev.off()
+    }
   )
 }
 
